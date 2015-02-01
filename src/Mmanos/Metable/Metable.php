@@ -159,9 +159,12 @@ trait Metable
 				continue;
 			}
 			
-			$v = is_null($v) ? '' : $v;
-			
 			if ($this->hasMeta($m)) {
+				if (is_null($v)) {
+					$this->unsetMeta($m);
+					continue;
+				}
+				
 				$attributes = array(
 					'value'           => $v,
 					'meta_updated_at' => date('Y-m-d H:i:s'),
@@ -171,6 +174,10 @@ trait Metable
 				$this->metas->find($m->id)->pivot->meta_updated_at = $attributes['meta_updated_at'];
 			}
 			else {
+				if (is_null($v)) {
+					continue;
+				}
+				
 				$this->metas()->attach($m, array_merge($this->metableTableSyncAttributes(), array(
 					'value'           => $v,
 					'meta_created_at' => date('Y-m-d H:i:s'),
