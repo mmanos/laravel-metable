@@ -151,6 +151,10 @@ trait Metable
 		$metas = is_array($meta) ? $meta : array($meta => $value);
 		
 		foreach ($metas as $m => $v) {
+			if (is_null($v) && !$this->hasMeta($m)) {
+				continue;
+			}
+			
 			if (!is_object($m)) {
 				$m = $this->findMetaByNameOrCreate($m);
 			}
@@ -174,10 +178,6 @@ trait Metable
 				$this->metas->find($m->id)->pivot->meta_updated_at = $attributes['meta_updated_at'];
 			}
 			else {
-				if (is_null($v)) {
-					continue;
-				}
-				
 				$this->metas()->attach($m, array_merge($this->metableTableSyncAttributes(), array(
 					'value'           => $v,
 					'meta_created_at' => date('Y-m-d H:i:s'),
