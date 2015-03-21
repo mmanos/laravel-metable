@@ -1,4 +1,4 @@
-<?php namespace Mmanos\Metable;
+<?php namespace Mmanos\Metable\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -37,7 +37,7 @@ class MetasCommand extends Command
 		file_put_contents($full_model_path, $this->getModelStub());
 		$this->info('Model created successfully!');
 		
-		$this->call('dump-autoload');
+		$this->call('optimize');
 	}
 	
 	/**
@@ -58,8 +58,8 @@ class MetasCommand extends Command
 	protected function createBaseMigration()
 	{
 		$name = 'create_' . $this->tableName() . '_table';
-		
-		$path = $this->laravel['path'].'/database/migrations';
+
+        $path = base_path('database/migrations');
 		
 		return $this->laravel['migration.creator']->create($name, $path);
 	}
@@ -91,8 +91,8 @@ class MetasCommand extends Command
 	protected function createBaseModel()
 	{
 		$name_parts = explode('_', $this->tableName());
-		
-		$path = $this->laravel['path'].'/models';
+
+        $path = app_path();
 		
 		for ($i = 0; $i < (count($name_parts) - 1); $i++) {
 			$path .= '/' . Str::studly(Str::singular($name_parts[$i]));

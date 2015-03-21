@@ -1,6 +1,8 @@
 <?php namespace Mmanos\Metable;
 
 use Illuminate\Support\ServiceProvider;
+use Mmanos\Metable\Commands\MetableCommand;
+use Mmanos\Metable\Commands\MetasCommand;
 
 class MetableServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,7 @@ class MetableServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		$this->package('mmanos/laravel-metable');
+
 	}
 	
 	/**
@@ -28,13 +30,13 @@ class MetableServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->bindShared('command.laravel-metable.metas', function ($app) {
-			return new MetasCommand;
+		$this->app->bind('command.laravel-metable.metas', function ($app) {
+			return new MetasCommand();
 		});
 		$this->commands('command.laravel-metable.metas');
 		
-		$this->app->bindShared('command.laravel-metable.metable', function ($app) {
-			return new MetableCommand;
+		$this->app->bind('command.laravel-metable.metable', function ($app) {
+			return new MetableCommand();
 		});
 		$this->commands('command.laravel-metable.metable');
 	}

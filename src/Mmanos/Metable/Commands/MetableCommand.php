@@ -1,4 +1,4 @@
-<?php namespace Mmanos\Metable;
+<?php namespace Mmanos\Metable\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -32,7 +32,7 @@ class MetableCommand extends Command
 		file_put_contents($full_migration_path, $this->getMigrationStub());
 		$this->info('Migration created successfully!');
 		
-		$this->call('dump-autoload');
+		$this->call('optimize');
 	}
 	
 	/**
@@ -43,8 +43,8 @@ class MetableCommand extends Command
 	protected function createBaseMigration()
 	{
 		$name = 'create_' . $this->argument('table') . '_table';
-		
-		$path = $this->laravel['path'].'/database/migrations';
+
+        $path = base_path('database/migrations');
 		
 		return $this->laravel['migration.creator']->create($name, $path);
 	}
