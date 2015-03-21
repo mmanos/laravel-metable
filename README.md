@@ -1,4 +1,4 @@
-# Meta Package for Laravel 4
+# Meta Package for Laravel 5
 
 This package adds meta support to your Laravel application. You can configure it to attach meta to any of your existing Eloquent models.
 
@@ -9,14 +9,14 @@ This package adds meta support to your Laravel application. You can configure it
 Add this to your composer.json file, in the require object:
 
 ```javascript
-"mmanos/laravel-metable": "dev-master"
+"mmanos/laravel-metable": "dev-laravel-5"
 ```
 
 After that, run composer install to install the package.
 
 #### Service Provider
 
-Register the `Mmanos\Metable\MetableServiceProvider` in your `app` configuration file.
+Register the `Mmanos\Metable\MetableServiceProvider` in your `config/app.php` configuration file.
 
 ## Configuration
 
