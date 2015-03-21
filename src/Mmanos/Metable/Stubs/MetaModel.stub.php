@@ -1,11 +1,11 @@
-<?php{{namespace}}
+<?php {{namespace}}
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class {{class}} extends Eloquent
 {
-	use SoftDeletingTrait;
+	use SoftDeletes;
 	
 	/**
 	 * The table name for t his model.
