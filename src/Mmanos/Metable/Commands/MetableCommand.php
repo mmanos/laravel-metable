@@ -56,7 +56,7 @@ class MetableCommand extends Command
 	 */
 	protected function getMigrationStub()
 	{
-		$stub = file_get_contents(__DIR__.'/../Mmanos/Metable/Stubs/MetableMigration.stub.php');
+		$stub = file_get_contents(__DIR__.'/../Stubs/MetableMigration.stub.php');
 		
 		$stub = str_replace('{{table}}', $this->argument('table'), $stub);
 		$stub = str_replace(
