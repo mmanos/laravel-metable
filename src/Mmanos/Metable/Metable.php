@@ -518,4 +518,65 @@ trait Metable
 		
 		return $query;
 	}
+
+    /**
+     * Fill the model with an array of attributes.
+     *
+     * @param  array  $attributes
+     * @return $this
+     *
+     * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+     */
+    public function fill(array $attributes){
+
+        parent::fill($attributes);
+
+        if( !isset($this->metable_fillable) ){
+            return $this;
+        }
+
+        foreach ($this->metaFillableFromArray($attributes) as $key => $value)
+        {
+            if ($this->isMetaFillable($key))
+            {
+                $this->setMeta($key, $value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $key
+     * @return bool
+     */
+    public function isMetaFillable($key)
+    {
+        if( !isset($this->metable_fillable) ){
+            return false;
+        }
+
+        if (in_array($key, $this->metable_fillable)){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the fillable meta attributes of a given array.
+     *
+     * @param  array  $attributes
+     * @return array
+     */
+    protected function metaFillableFromArray(array $attributes)
+    {
+        if ( isset($this->metable_fillable) && count($this->metable_fillable) )
+        {
+            return array_intersect_key($attributes, array_flip($this->metable_fillable));
+        }
+
+        return $attributes;
+    }
+
 }
