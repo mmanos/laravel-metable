@@ -485,6 +485,19 @@ class QueryBuilder extends Builder
 	}
 	
 	/**
+	 * Execute the query and get the first result.
+	 *
+	 * @param  array   $columns
+	 * @return mixed|\Illuminate\Database\Eloquent\Collection|static
+	 */
+	public function first($columns = array('*'))
+	{
+		$results = $this->take(1)->get($columns);
+
+		return count($results) > 0 ? $results->first() : null;
+	}
+	
+	/**
 	 * Get a paginator for the "select" statement.
 	 *
 	 * @param  int    $perPage
