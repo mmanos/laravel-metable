@@ -29,7 +29,7 @@ class {{class}} extends Migration
 		});
 		
 		if ('mysql' == DB::connection()->getDriverName()) {
-			DB::statement('CREATE INDEX meta_value ON user_metas (meta_id, value(255), xref_id);');
+			DB::statement('CREATE INDEX meta_value ON {{table}} (meta_id, value(255), xref_id);');
 		}
 	}
 	
